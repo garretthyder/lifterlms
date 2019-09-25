@@ -6,7 +6,8 @@
  * @group    functions_core
  *
  * @since 3.3.1
- * @version 3.30.1
+ * @since 3.35.0 Test ipv6 addresses.
+ * @since 3.36.1 Use exception from lifterlms-tests lib.
  */
 class LLMS_Test_Functions_Core extends LLMS_UnitTestCase {
 
@@ -283,20 +284,42 @@ class LLMS_Test_Functions_Core extends LLMS_UnitTestCase {
 
 	/**
 	 * Test llms_get_ip_address()
-	 * @return   void
-	 * @since    3.6.0
-	 * @version  3.6.0
+	 *
+	 * @since 3.6.0
+	 * @since 3.35.0 Test sanitization and ipv6 addresses.
+	 *
+	 * @return void
 	 */
 	public function test_llms_get_ip_address() {
 
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$this->assertEquals( '127.0.0.1', llms_get_ip_address() );
 
+		$_SERVER['REMOTE_ADDR'] = '::1';
+		$this->assertEquals( '::1', llms_get_ip_address() );
+		unset( $_SERVER['REMOTE_ADDR'] );
+
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '127.0.0.1, 192.168.1.1, 192.168.1.5';
 		$this->assertEquals( '127.0.0.1', llms_get_ip_address() );
 
-		$_SERVER['X-Real-IP'] = '127.0.0.1';
+		$_SERVER['HTTP_X_FORWARDED_FOR'] = '::1, ::2';
+		$this->assertEquals( '::1', llms_get_ip_address() );
+		unset( $_SERVER['HTTP_X_FORWARDED_FOR'] );
+
+		$_SERVER['HTTP_X_REAL_IP'] = '127.0.0.1';
 		$this->assertEquals( '127.0.0.1', llms_get_ip_address() );
+
+		$_SERVER['HTTP_X_REAL_IP'] = '::1';
+		$this->assertEquals( '::1', llms_get_ip_address() );
+		unset( $_SERVER['HTTP_X_REAL_IP'] );
+
+		$this->assertEquals( '', llms_get_ip_address() );
+
+		$_SERVER['REMOTE_ADDR'] = '127\.0.0.1';
+		$this->assertEquals( '127.0.0.1', llms_get_ip_address() );
+
+		$_SERVER['REMOTE_ADDR'] = '127\\/\/\/\.0.0.1';
+		$this->assertEquals( '', llms_get_ip_address() );
 
 	}
 
@@ -444,7 +467,7 @@ class LLMS_Test_Functions_Core extends LLMS_UnitTestCase {
 	/**
 	 * Test llms_redirect_and_exit() func with safe on
 	 *
-	 *  @since [version] Use exception from lifterlms-tests lib.
+	 * @since 3.36.1 Use exception from lifterlms-tests lib.
 	 *
 	 * @return void
 	 */
@@ -459,7 +482,7 @@ class LLMS_Test_Functions_Core extends LLMS_UnitTestCase {
 	/**
 	 * Test llms_redirect_and_exit() func with safe custom status
 	 *
-	 *  @since [version] Use exception from lifterlms-tests lib.
+	 * @since 3.36.1 Use exception from lifterlms-tests lib.
 	 *
 	 * @return void
 	 */

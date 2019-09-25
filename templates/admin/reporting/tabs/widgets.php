@@ -1,9 +1,17 @@
 <?php
 /**
  * Reporting Sales Tab
+ *
+ * @package LifterLMS/Templates/Admin
+ *
+ * @since Unknown
+ * @version Unknown
  */
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-if ( ! is_admin() ) { exit; }
+
+defined( 'ABSPATH' ) || exit;
+if ( ! is_admin() ) {
+	exit;
+}
 ?>
 
 <?php foreach ( $widget_data as $row => $widgets ) : ?>

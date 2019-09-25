@@ -1,14 +1,18 @@
 <?php
 /**
  * Registration Form
- * @since    3.0.0
- * @version  3.19.4
+ *
+ * @package LifterLMS/Templates
+ *
+ * @since 3.0.0
+ * @version 3.19.4
  */
+
 defined( 'ABSPATH' ) || exit;
 
-$field_data = isset( $_POST ) ? $_POST : array();
+$field_data = isset( $_POST ) ? $_POST : array(); // phpcs:disable WordPress.Security.NonceVerification.Missing -- Data is sanitized in LLMS_Person_Handler::fill_fields().
 
-// don't allow logged in users to register
+// don't allow logged in users to register.
 if ( get_current_user_id() ) {
 	return;
 }
@@ -36,7 +40,8 @@ if ( get_current_user_id() ) {
 
 			<?php
 				/**
-				 * llms_registration_privacy
+				 * Hook: llms_registration_privacy
+				 *
 				 * @hooked llms_privacy_policy_form_field - 10
 				 * @hooked llms_agree_to_terms_form_field - 20
 				 */
@@ -51,15 +56,19 @@ if ( get_current_user_id() ) {
 
 			<?php do_action( 'lifterlms_before_registration_button' ); ?>
 
-			<?php llms_form_field( array(
-				'columns' => 3,
-				'classes' => 'llms-button-action',
-				'id' => 'llms_register_person',
-				'value' => apply_filters( 'lifterlms_registration_button_text', __( 'Register', 'lifterlms' ) ),
-				'last_column' => true,
-				'required' => false,
-				'type'  => 'submit',
-			) ); ?>
+			<?php
+			llms_form_field(
+				array(
+					'columns'     => 3,
+					'classes'     => 'llms-button-action',
+					'id'          => 'llms_register_person',
+					'value'       => apply_filters( 'lifterlms_registration_button_text', __( 'Register', 'lifterlms' ) ),
+					'last_column' => true,
+					'required'    => false,
+					'type'        => 'submit',
+				)
+			);
+			?>
 
 			<?php do_action( 'lifterlms_after_registration_button' ); ?>
 			<?php wp_nonce_field( 'llms_register_person', '_llms_register_person_nonce' ); ?>

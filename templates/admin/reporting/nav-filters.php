@@ -2,9 +2,12 @@
 /**
  * Additional Filters used by various reporting screens
  *
- * @since    ??
- * @version  3.29.0
+ * @package LifterLMS/Templates/Admin
+ *
+ * @since Unknown
+ * @version 3.29.0
  */
+
 defined( 'ABSPATH' ) || exit;
 is_admin() || exit;
 ?>
@@ -49,7 +52,7 @@ is_admin() || exit;
 
 </nav>
 
-<nav class="llms-nav-tab-wrapper llms-nav-secondary llms-analytics-filters"<?php echo ( $current_students || $current_courses || $current_memberships ) ? ' style="display:block;"' : '' ; ?>>
+<nav class="llms-nav-tab-wrapper llms-nav-secondary llms-analytics-filters"<?php echo ( $current_students || $current_courses || $current_memberships ) ? ' style="display:block;"' : ''; ?>>
 	<div class="llms-inside-wrap">
 		<ul class="llms-nav-items">
 			<li class="llms-nav-item llms-analytics-form">

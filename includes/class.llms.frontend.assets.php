@@ -1,21 +1,32 @@
 <?php
+/**
+ * Frontend scripts class
+ *
+ * @since 1.0.0
+ * @version 3.36.0
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 /**
-* Frontend scripts class
-* @since    1.0.0
-* @version  3.22.0
-*/
+ * LLMS_Frontend_Assets
+ *
+ * @since 1.0.0
+ * @since 3.35.0 Explicitly define asset versions.
+ * @since 3.36.0 Localize tracking with client-side settings.
+ */
 class LLMS_Frontend_Assets {
 
 	/**
 	 * Inline script ids that have been enqueued
+	 *
 	 * @var  array
 	 */
 	private static $enqueued_inline_scripts = array();
 
 	/**
 	 * Array of inline scripts to be output in the header / footer respectively
+	 *
 	 * @var  array
 	 */
 	private static $inline_scripts = array(
@@ -26,6 +37,7 @@ class LLMS_Frontend_Assets {
 	/**
 	 * Initializer
 	 * Replaces non-static __construct() from 3.4.0 & lower
+	 *
 	 * @return   void
 	 * @since    3.4.1
 	 * @version  3.17.5
@@ -40,10 +52,11 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Enqueue an inline script
-	 * @param    string     $id        unique id for the script, used to prevent duplicates
-	 * @param    string     $script    JS to enqueue, do not add <script> tags!
-	 * @param    string     $where     where to enqueue, in the header or footer
-	 * @param    float      $priority  enqueue priority
+	 *
+	 * @param    string $id        unique id for the script, used to prevent duplicates
+	 * @param    string $script    JS to enqueue, do not add <script> tags!
+	 * @param    string $where     where to enqueue, in the header or footer
+	 * @param    float  $priority  enqueue priority
 	 * @return   boolean
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -86,6 +99,7 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Output the inline PW Strength meter script
+	 *
 	 * @return   void
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -101,23 +115,27 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Enqueue Styles
-	 * @since   1.0.0
-	 * @version 3.18.0
+	 *
+	 * @since 1.0.0
+	 * @since 3.18.0 Unknown.
+	 * @since 3.35.0 Explicitly define asset versions.
+	 *
+	 * @return void
 	 */
 	public static function enqueue_styles() {
 
 		global $post_type;
 
-		wp_register_style( 'llms-iziModal', LLMS_PLUGIN_URL . 'assets/vendor/izimodal/iziModal' . LLMS_ASSETS_SUFFIX . '.css' );
+		wp_register_style( 'llms-iziModal', LLMS_PLUGIN_URL . 'assets/vendor/izimodal/iziModal' . LLMS_ASSETS_SUFFIX . '.css', array(), '1.5.1' );
 
-		wp_enqueue_style( 'webui-popover', LLMS_PLUGIN_URL . 'assets/vendor/webui-popover/jquery.webui-popover' . LLMS_ASSETS_SUFFIX . '.css' );
+		wp_enqueue_style( 'webui-popover', LLMS_PLUGIN_URL . 'assets/vendor/webui-popover/jquery.webui-popover' . LLMS_ASSETS_SUFFIX . '.css', array(), '1.2.15' );
 
-		wp_enqueue_style( 'lifterlms-styles', LLMS_PLUGIN_URL . 'assets/css/lifterlms' . LLMS_ASSETS_SUFFIX . '.css' );
+		wp_enqueue_style( 'lifterlms-styles', LLMS_PLUGIN_URL . 'assets/css/lifterlms' . LLMS_ASSETS_SUFFIX . '.css', array(), LLMS()->version );
 		wp_style_add_data( 'lifterlms-styles', 'rtl', 'replace' );
 		wp_style_add_data( 'lifterlms-styles', 'suffix', LLMS_ASSETS_SUFFIX );
 
-		if ( 'llms_my_certificate' == $post_type || 'llms_certificate' == $post_type ) {
-			wp_enqueue_style( 'certificates', LLMS_PLUGIN_URL . 'assets/css/certificates' . LLMS_ASSETS_SUFFIX . '.css' );
+		if ( 'llms_my_certificate' === $post_type || 'llms_certificate' === $post_type ) {
+			wp_enqueue_style( 'certificates', LLMS_PLUGIN_URL . 'assets/css/certificates' . LLMS_ASSETS_SUFFIX . '.css', array(), LLMS()->version );
 			wp_style_add_data( 'certificates', 'rtl', 'replace' );
 			wp_style_add_data( 'certificates', 'suffix', LLMS_ASSETS_SUFFIX );
 		}
@@ -130,37 +148,42 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Enqueue Scripts
-	 * @since   1.0.0
-	 * @version 3.22.0
+	 *
+	 * @since 1.0.0
+	 * @since 3.22.0 Unknown.
+	 * @since 3.35.0 Explicitly define asset versions.
+	 * @since 3.36.0 Localize tracking with client-side settings.
+	 *
+	 * @return void
 	 */
 	public static function enqueue_scripts() {
 
 		wp_enqueue_script( 'jquery-ui-tooltip' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'collapse', LLMS_PLUGIN_URL . 'assets/js/vendor/collapse.js' );
-		wp_enqueue_script( 'transition', LLMS_PLUGIN_URL . 'assets/js/vendor/transition.js' );
-		wp_enqueue_script( 'webui-popover', LLMS_PLUGIN_URL . 'assets/vendor/webui-popover/jquery.webui-popover' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '', true );
 
-		wp_register_script( 'llms-jquery-matchheight', LLMS_PLUGIN_URL . 'assets/js/vendor/jquery.matchHeight.js', array( 'jquery' ), '', true );
+		// @todo: these two scripts are probably unsued.
+		wp_enqueue_script( 'collapse', LLMS_PLUGIN_URL . 'assets/js/vendor/collapse.js', array(), '3.3.5' );
+		wp_enqueue_script( 'transition', LLMS_PLUGIN_URL . 'assets/js/vendor/transition.js', array(), '3.3.5' );
+
+		wp_enqueue_script( 'webui-popover', LLMS_PLUGIN_URL . 'assets/vendor/webui-popover/jquery.webui-popover' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '1.2.15', true );
+
+		wp_register_script( 'llms-jquery-matchheight', LLMS_PLUGIN_URL . 'assets/js/vendor/jquery.matchHeight.js', array( 'jquery' ), '0.7.0', true );
 		if ( is_llms_account_page() || is_course() || is_membership() || is_lesson() || is_memberships() || is_courses() || is_tax( array( 'course_cat', 'course_tag', 'course_difficulty', 'course_track', 'membership_tag', 'membership_cat' ) ) ) {
 			wp_enqueue_script( 'llms-jquery-matchheight' );
 		}
 
-		/**
-		 * @todo  this is currently being double registered and enqueued by LLMS_Ajax
-		 *        fix it ffs...
-		 */
-		wp_register_script( 'llms', LLMS_PLUGIN_URL . 'assets/js/llms' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '', true );
+		// @todo  this is currently being double registered and enqueued by LLMS_Ajax.
+		wp_register_script( 'llms', LLMS_PLUGIN_URL . 'assets/js/llms' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), LLMS()->version, true );
 		wp_enqueue_script( 'llms' );
 
-		wp_register_script( 'llms-notifications', LLMS_PLUGIN_URL . 'assets/js/llms-notifications' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '', true );
+		wp_register_script( 'llms-notifications', LLMS_PLUGIN_URL . 'assets/js/llms-notifications' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), LLMS()->version, true );
 		if ( get_current_user_id() ) {
 			wp_enqueue_script( 'llms-notifications' );
 		}
 
-		wp_enqueue_script( 'llms-ajax', LLMS_PLUGIN_URL . 'assets/js/llms-ajax' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'llms-form-checkout', LLMS_PLUGIN_URL . 'assets/js/llms-form-checkout' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'llms-ajax', LLMS_PLUGIN_URL . 'assets/js/llms-ajax' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), LLMS()->version, true );
+		wp_enqueue_script( 'llms-form-checkout', LLMS_PLUGIN_URL . 'assets/js/llms-form-checkout' . LLMS_ASSETS_SUFFIX . '.js', array( 'jquery' ), LLMS()->version, true );
 
 		if ( ( is_llms_account_page() || is_llms_checkout() ) && 'yes' === get_option( 'lifterlms_registration_password_strength' ) ) {
 			wp_enqueue_script( 'password-strength-meter' );
@@ -183,6 +206,10 @@ class LLMS_Frontend_Assets {
 			'window.llms = window.llms || {};window.llms.ajaxurl = "' . admin_url( 'admin-ajax.php', $ssl ) . '";'
 		);
 		self::enqueue_inline_script(
+			'llms-tracking-settings',
+			"window.llms.tracking = '" . wp_json_encode( LLMS()->events()->get_client_settings() ) . "';"
+		);
+		self::enqueue_inline_script(
 			'llms-LLMS-obj',
 			'window.LLMS = window.LLMS || {};'
 		);
@@ -195,7 +222,8 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Retrieve inline scripts
-	 * @param    string     $where  header or footer, if none provided both will be returned
+	 *
+	 * @param    string $where  header or footer, if none provided both will be returned
 	 * @return   array
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -214,7 +242,8 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Determine if an inline script has already been enqueued
-	 * @param    string     $id  id of the inline script
+	 *
+	 * @param    string $id  id of the inline script
 	 * @return   boolean
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -225,7 +254,8 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Output inline scripts
-	 * @param    string     $where  which set of scripts to output [header|footer]
+	 *
+	 * @param    string $where  which set of scripts to output [header|footer]
 	 * @return   void
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -249,6 +279,7 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Output inline scripts to the footer
+	 *
 	 * @return   void
 	 * @since    3.4.1
 	 * @version  3.4.1
@@ -259,6 +290,7 @@ class LLMS_Frontend_Assets {
 
 	/**
 	 * Output inline scripts to the header
+	 *
 	 * @return   void
 	 * @since    3.4.1
 	 * @version  3.4.1

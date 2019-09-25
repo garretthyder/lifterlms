@@ -4,12 +4,12 @@ Donate link: https://lifterlms.com
 Tags: learning management system, LMS, membership, elearning, online courses, quizzes, sell courses, badges, gamification, learning, Lifter, LifterLMS
 Requires at least: 4.8
 Requires PHP: 7.2
-Tested up to: 5.2.2
-Stable tag: 3.34.5
+Tested up to: 5.2.3
+Stable tag: 3.36.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-LifterLMS, the #1 WordPress LMS solution, makes it easy to create, sell, and protect engaging online courses.
+LifterLMS is a powerful WordPress learning management system plugin that makes it easy to create, sell, and protect engaging online courses and training based membership websites.
 
 
 == Description ==
@@ -25,7 +25,7 @@ https://www.youtube.com/watch?v=jDVvkipF_pg
 
 > **At it's core LifterLMS exists to lift up others through education.**
 
-You do NOT need a seperate ecommerce or membership plugin made by a different company to use LifterLMS! All that and more is included with LifterLMS so you can **avoid the "Software Frankenstein" problem** (too many plugins made by different companies that don't work well together have different levels of support).
+You do NOT need a separate ecommerce or membership plugin made by a different company to use LifterLMS! All that and more is included with LifterLMS so you can **avoid the "Software Frankenstein" problem** (too many plugins made by different companies that don't work well together have different levels of support).
 
 LifterLMS is also known for having a thriving well supported user community through, active listening, social engagement and robust documentation.
 
@@ -33,7 +33,7 @@ LifterLMS is also known for having a thriving well supported user community thro
 
 > We encourage you to get to know us by signing up for a **[$1 temporary _30 Day_ website][try]** on our servers with the core LifterLMS plugin AND all the premium add-ons intalled. This demo allows you to test drive all the add-ons before you invest. You can even add your other favorite plugins & themes to your demo site so you can see them in action together. 
 
-> Are you ready to **[Try LifterLMS for $1][try]?** :rocket:
+> Are you ready to **[Try LifterLMS for $1][try]?** 🚀
 
 ***
 
@@ -221,7 +221,7 @@ _Increase your training program's value with these engagement add-ons_
 + [LifterLMS Assignments][ass]
 + [LifterLMS Private Areas][pa]
 + [LifterLMS Social Learning][sl]
-+ [LifterLMS Advanced Video][av] (Scheduled to Release: 10/15/19)
++ [LifterLMS Advanced Video][av]
 + LifterLMS Custom Fields (Scheduled to Release: 10/15/19)
 + LifterLMS Groups (Scheduled to Release: 12/11/19)
 
@@ -318,9 +318,9 @@ We invite you to **let us guide you to a successful training platform** through 
 
 Install the free LifterLMS plugin on your website from here on WordPress, then ...
 
-## **[Try out all the premium add-ons for $1 by signing up >>HERE<<][try]**
+**[Try out all the premium add-ons for $1 by signing up >>HERE<<][try]**
 
-:rocket:
+🚀
 
 
 [home]: https://lifterlms.com/?utm_source=LifterLMS%20Plugin&utm_medium=README&utm_campaign=Readme%20to%20Sale
@@ -408,7 +408,9 @@ You can return to the setup wizard at any time by following [these steps](https:
 == Frequently Asked Questions ==
 
 #### Where do I buy LifterLMS add-ons or bundles?
+
 You can explore the individual add-ons [here](https://lifterlms.com/store/?utm_source=LifterLMS%20Plugin&utm_medium=README&utm_campaign=Readme%20to%20Sale) or save BIG with a [bundle](https://lifterlms.com/product-category/bundles/?utm_source=LifterLMS%20Plugin&utm_medium=README&utm_campaign=Readme%20to%20Sale)
+
 
 #### Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread?
 
@@ -451,6 +453,21 @@ We care about your feature ideas and what you have to say. You can [request a fe
 Be sure you’ve taken the free tutorial training video course: [How to Create an Online Course with LifterLMS](http://demo.lifterlms.com/course/how-to-build-a-learning-management-system-with-lifterlms/?utm_source=LifterLMS%20Plugin&utm_medium=README&utm_campaign=Readme%20to%20Sale). We also encourage you to get to know us by signing up for a $1 temporary _30 Day_ website on our servers which comes with the core LifterLMS plugin all our add-ons intalled. This demo allows you to test drive all the add-ons before you invest. Check it out here: **[Try LifterLMS for $1](https://lifterlms.com/product/try/?utm_source=LifterLMS%20Plugin&utm_medium=README&utm_campaign=Readme%20to%20Sale)**.
 
 
+#### I'm interested in contributing to LifterLMS, how can I start?
+
+LifterLMS is an open-source project. We manage our team, developers, issues, and code on [GitHub](https://github.com/gocodebox/lifterlms/).
+
+We welcome contributions of all kinds, anyone can contribute even if you don't write code! Check out our [Contributor's Guidelines](https://github.com/gocodebox/lifterlms/blob/master/.github/CONTRIBUTING.md) to get started.
+
+
+#### I found a security vulnerability or issue, how can I report it to the team?
+
+The LifterLMS team takes security issues and vulnerabilities very seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+
+Please contact team@lifterlms.com to report a security vulnerability.
+
+You can review our full security policy at [https://lifterlms.com/security-policy](https://lifterlms.com/security-policy).
+
 
 == Screenshots ==
 
@@ -481,6 +498,118 @@ Be sure you’ve taken the free tutorial training video course: [How to Create a
 
 
 == Changelog ==
+
+
+= v3.36.1 - 2019-09-24 =
+------------------------
+
+##### Updates
+
++ Include SendWP Connector in LifterLMS Engagement Settings.
++ Removed usage of `WP_Error::has_errors()` to support WordPress version prior to 5.1.
++ Improve performances when checking if an event is valid in `LLMS_Events->is_event_valid()`.
++ Remove redundant check on `is_singular()` and `is_post_type_archive()` in `LLMS_Events->should_track_client_events()`.
+
+##### Bugfixes
+
++ Fixed a compatibility issue with FitVids.js causing excess white space displayed around videos when using the library, WP plugin, or themes that utilize the library.
++ Fixed an issue allowing recurring charges to continue processing after the order or customer had been deleted from the site.
++ Fixed issue causing Membership Restriction settings from properly saving.
++ Fixed issue that allowed instructors to see all quizzes on a site when the instructor had either no courses or only empty courses (courses with no lessons).
++ Fixed "Last Seen" column displaying wrong date when the student last login date was saved as timestamp.
++ Fixed an issue causing popover notifications to be skipped (never displayed) as a result of redirects.
+
+
+= v3.36.0 - 2019-09-16 =
+------------------------
+
+##### User Interaction event and session Tracking
+
++ Added user interaction tracking for the following events:
+
+  + User sign in and out.
+  + Page load and exit (for LMS content)
+  + Page focus and blur (for LMS content)
+  + And more to come
+
++ Interaction events are grouped into sessions automatically. A session is "closed" after 30 minutes of inactivity or a log-out event.
++ Added "Last Seen" student reporting column which reports the last recorded activity for the student.
+
+##### Enhancements
+
++ Automatically hydrate when calling LLMS_Abstract_Database_Store::to_array().
++ Added CSS to make course and lesson video embeds automatically responsive.
+
+##### Bug Fixes
+
++ Correctly pass the `$remember` variable when using `llms_set_person_auth_cookie()`.
++ Fixed undefined index error when retrieving an unset value from an unsaved database model.
++ Fix issue causing quotes to be encoded in shortcodes used in course and membership restriction message settings fields.
++ Fix issue preventing manual updates of order dates (next payment, trial expiration, and access expiration) from being saved properly.
+
+
+= v3.35.2 - 2019-09-06 =
+------------------------
+
++ When sanitizing settings, don't strip tags on editor and textarea fields that allow HTML.
++ Added JS filter `llms_lesson_rerender_change_events` to lesson editor view re-render change events.
+
+
+= v3.35.1 - 2019-09-04 =
+------------------------
+
++ Fix instances of improper input sanitization and handling.
++ Include scripts, styles, and images for reporting charts and datepickers
+
+
+= v3.35.0 - 2019-09-04 =
+------------------------
+
+##### Security Notice
+
++ Fixed a security vulnerability disclosed by the WordPress plugin review team. Please upgrade immediately!
+
+##### Updates
+
++ Explicitly setting css and js file versions for various static assets..
++ Added data sanitization methods in various form handlers.
++ Added nonce verification to various form handlers.
+
+##### Bug fixes
+
++ Fixed some translation strings that had literal variables instead of placeholders.
++ Fixed undefined index error encountered when attempting to email a voucher export.
++ Fixed undefined index error when PHP file upload errors are encountered during a course import.
+
+##### Deprecations
+
+The following unused classes have been marked as deprecated and will be removed from LifterLMS in the next major release.
+
++ LLMS_Analytics_Memberships
++ LLMS_Analytics_Courses
++ LLMS_Analytics_Sales
++ LLMS_Meta_Box_Expiration
++ LLMS_Meta_Box_Video
+
+##### Template Updates
+
++  [admin/reporting/tabs/courses/overview.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/courses/overview.php)
++  [admin/reporting/tabs/memberships/overview.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/memberships/overview.php)
++  [admin/reporting/tabs/quizzes/attempts.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/quizzes/attempts.php)
++  [admin/reporting/tabs/quizzes/overview.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/quizzes/overview.php)
++  [admin/reporting/tabs/students/courses-course.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/students/courses-course.php)
++  [admin/reporting/tabs/students/courses.php](https://github.com/gocodebox/lifterlms/blob/master/templates/admin/reporting/tabs/students/courses.php)
++  [loop/featured-image.php](https://github.com/gocodebox/lifterlms/blob/master/templates/loop/featured-image.php)
++  [myaccount/view-order.php](https://github.com/gocodebox/lifterlms/blob/master/templates/myaccount/view-order.php)
++  [quiz/results.php](https://github.com/gocodebox/lifterlms/blob/master/templates/quiz/results.php)
++  [single-certificate.php](https://github.com/gocodebox/lifterlms/blob/master/templates/single-certificate.php)
++  [single-no-access.php](https://github.com/gocodebox/lifterlms/blob/master/templates/single-no-access.php)
++  [taxonomy-course_cat.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-course_cat.php)
++  [taxonomy-course_difficulty.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-course_difficulty.php)
++  [taxonomy-course_tag.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-course_tag.php)
++  [taxonomy-course_track.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-course_track.php)
++  [taxonomy-membership_cat.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-membership_cat.php)
++  [taxonomy-membership_tag.php](https://github.com/gocodebox/lifterlms/blob/master/templates/taxonomy-membership_tag.php)
 
 
 = v3.34.5 - 2019-08-29 =
@@ -558,153 +687,5 @@ Be sure you’ve taken the free tutorial training video course: [How to Create a
 + Fix an issue causing the "Last" page pagination link to display for lists with 0 possible results.
 + Don't output the "Last" page pagination link on the last page.
 
-
-
-= v3.34.0 - 2019-08-15 =
-------------------------
-
-##### LifterLMS REST API v1.0.0-beta.1
-
-+ A robust REST API is now included in the LifterLMS core.
-+ Create API Keys to consume and manage LifterLMS resources and students from external applications.
-+ Create webhooks to pass LifterLMS resource data to external applications (like Zapier!).
-+ The full API specification can be found at [https://gocodebox.github.io/lifterlms-rest/](https://gocodebox.github.io/lifterlms-rest/).
-
-##### Student management capabilities
-
-+ Explicit capabilities have been added to determine which users can create, view, update, and delete students.
-+ Admins and LMS Managers have all student management capabilities.
-+ Instructors and instructors assistants are granted limited view capabilities allowing them to only view students enrolled in their own courses/memberships.
-+ Added the `list_users` capability to the "Instructor" role, allowing instructor's to better view and manage their assistant instructors.
-+ The new capabilities are: `create_students`, `view_students`, `view_others_students`, `edit_students`, `edit_others_students`, `delete_students`, & `delete_others_students`.
-
-##### Updates
-
-+ Added new actions to help differentiate enrollment creation and update events.
-+ Added methods and logic for managing user management of other users.
-+ Added a filter `llms_table_get_table_classes` to LifterLMS admin tables which allows customization of the CSS classes applied to the `<table>` elements. Thanks  [@pondermatic](https://github.com/pondermatic)!
-+ Added a filter `llms_install_get_schema` to the database schema to allow 3rd parties to run table installations alongside the core.
-+ Added the ability to pull "raw" (unfiltered) data from the database via classes extending the `LLMS_Post_Model` abstract.
-+ Added a `bulk_set()` method to the `LLMS_Post_Model` abstract allowing the updating of multiple properties in one command.
-+ Added `comment_status`, `ping_status`, `date_gmt`, `modified_gmt`, `menu_order`, `post_password` as gettable\settable post properties via the `LLMS_Post_Model` abstract.
-+ Links on reporting tables are now the proper color.
-+ The `editable_roles` filter which determines which roles can manage which other roles is now always loaded (instead of being loaded only on the admin panel).
-+ Updated LifterLMS Blocks to 1.5.2
-
-##### Bug Fixes
-
-+ Fixed an issue preventing the `user_url` property from being retrieved by the `get()` method of the `LLMS_Abstract_User_Data` class.
-+ Fixed an issue causing the `LLMS_Instructors::get_assistants()` method to return assistants for the currently logged in user instead of the instructor of the instantiated object.
-+ Fixed an issue which would allow LMS Managers to edit and delete site administrators.
-
-##### Deprecations
-
-**The following functions and methods have been marked as deprecated and will be removed from LifterLMS with the next major release.**
-
-+ LLMS_Course::get_children_sections() use LLMS_Course::get_sections( 'posts' )" instead
-+ LLMS_Course::get_children_lessons() use LLMS_Course::get_lessons( 'posts' )" instead
-+ LLMS_Course::get_author()
-+ LLMS_Course::get_author_id() use LLMS_Course::get( "author" ) instead
-+ LLMS_Course::get_author_name()
-+ LLMS_Course::get_sku() use LLMS_Course::get( "sku" ) instead
-+ LLMS_Course::get_id() use LLMS_Course::get( "id" ) instead
-+ LLMS_Course::get_title() use get_the_title() instead
-+ LLMS_Course::get_permalink() use get_permalink() instead
-+ LLMS_Course::get_user_postmeta_data()
-+ LLMS_Course::get_user_postmetas_by_key()
-+ LLMS_Course::get_checkout_url()
-+ LLMS_Course::get_start_date() use LLMS_Course::get_date( "start_date" ) instead
-+ LLMS_Course::get_end_date() use LLMS_Course::get_date( "end_date" ) instead
-+ LLMS_Course::get_next_uncompleted_lesson()
-+ LLMS_Course::get_lesson_ids() use LLMS_Course::get_lessons( "ids" ) instead
-+ LLMS_Course::get_syllabus_sections() use LLMS_Course::get_sections() instead
-+ LLMS_Course::get_short_description() use LLMS_Course::get( "excerpt" ) instead
-+ LLMS_Course::get_syllabus() use LLMS_Course::get_sections() instead
-+ LLMS_Course::get_user_enroll_date()
-+ LLMS_Course::get_user_post_data()
-+ LLMS_Course::check_enrollment()
-+ LLMS_Course::is_user_enrolled() use llms_is_user_enrolled() instead
-+ LLMS_Course::get_student_progress() use LLMS_Student::get_progress() instead
-+ LLMS_Course::get_membership_link()
-
-
-= v3.33.2 - 2019-06-26 =
-------------------------
-
-+ It is now possible to send test copies of the "Student Welcome" email to yourself.
-+ Improved information logged when an error is encountered during an email send.
-+ Add backwards compatibility for legacy add-on integrations priority loading method.
-+ Fixed undefined index notice when viewing log files on the admin status screen.
-
-
-= v3.33.1 - 2019-06-25 =
-------------------------
-
-##### Updates
-
-+ Added method to retrieve the load priority of integrations.
-+ The capabilities used to determine if uses can clone and export courses now check `edit_course` instead of `edit_post`.
-
-##### Bug Fixes
-
-+ Fixed an issue which would cause the "Net Sales" line to sometimes display as a bar on the sales revenue reporting chart.
-+ Fixed an issue causing a PHP notice to be logged when viewing the sales reporting screen.
-+ Fixed an issue causing backslashes to be added before quotation marks in access plan descriptions.
-+ Integration classes are now loaded in the order defined by the integration class.
-+ Fixed an issue causing a PHP error when viewing the admin logs screen when no logs exist.
-
-
-= v3.33.0 - 2019-05-21 =
-------------------------
-
-##### Updates
-
-+ Added the ability for site administrators to delete (completely remove) enrollment records from the database.
-+ Catalogs sorted by Order (`menu_order`) now have an additional sort (by post title) to improve ordering consistency for items with the same order, thanks [@pondermatic](https://github.com/pondermatic)!
-+ Hooks in the dashboard order review template now pass the `LLMS_Order`.
-
-##### LifterLMS Blocks
-
-+ Updated to version 1.5.1
-+ All blocks are now registered only for post types where they can actually be used.
-+ Only register block visibility settings on static blocks. Fixes an issue causing core (or 3rd party) dynamic blocks from being managed within the block editor.
-
-##### Bug Fixes
-
-+ If an enrolled student accesses checkout for a course/membership they're already enrolled in they will be shown a message stating as much.
-+ Removed a redundant check for the existence of an order on the dashboard order review template.
-+ When an order is deleted, student enrollment records for that order will be removed. This fixes an issue causing admins to not be able to manage the enrollment status of a student enrolled via a deleted order.
-+ Fix issue causing errors when using the `[lifterlms_lesson_mark_complete]` shortcode on course post types.
-+ Fixed an issue causing quiz questions to generate publicly accessible permalinks which could be indexed by search engines.
-
-##### Templates Changed
-
-+ [course/complete-lesson-link.php](https://github.com/gocodebox/lifterlms/blob/master/templates/course/complete-lesson-link.php)
-+ [templates/myaccount/view-order.php](https://github.com/gocodebox/lifterlms/blob/master/templates/templates/myaccount/view-order.php)
-
-
-= v3.32.0 - 2019-05-13 =
-------------------------
-
-##### Updates
-
-+ Added Membership reporting
-+ Added the ability to restrict coupons to courses and memberships which are in draft or scheduled status.
-+ When recurring payments are disabled, output a "Staging" bubble on the "Orders" menu item.
-+ Recurring recharges now add order notes and trigger actions when gateway or recurring payment status errors are encountered.
-+ When managing recurring payment status through the warning notice, stay on the same page and clear nonces instead of redirecting to the LifterLMS Settings screen.
-+ Updated the Action Scheduler library to the latest version (2.2.5)
-+ Exposed the Action Scheduler's scheduled actions interface as a tab on the LifterLMS Status page.
-
-##### LifterLMS Blocks
-
-+ Updated to version 1.4.1.
-+ Fixed issue causing asset paths to have invalid double slashes.
-+ Fixed issue causing frontend css assets to look for an unresolvable dependency.
-
-##### Bug Fixes
-
-+ Fixed an issue allowing instructors to view a list of students from courses and memberships they don't have access to.
-+ WooCommerce compatibility filters added in 3.31.0 are now scheduled at `init` instead of `plugins_loaded`, resolves conflicts with several WooCommerce add-ons which utilize core WC functions before LifterLMS functions are loaded.
 
 [View the full changelog](https://github.com/gocodebox/lifterlms/blob/master/CHANGELOG.md#lifterlms-changelog)

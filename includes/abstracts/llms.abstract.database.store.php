@@ -1,28 +1,34 @@
 <?php
 /**
  * WPDB database interactions
+ *
  * @since 3.14.0
- * @version 3.34.0
+ * @version 3.36.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * WPDB database interactions
+ *
  * @since 3.14.0
  * @since 3.33.0 setup() method returns self instead of void.
  * @since 3.34.0 to_array() method returns value of the primary key instead of the format.
+ * @since 3.36.0 Prevent undefined index error when attempting to retrieve an unset value from an unsaved object.
+ *               Hydrate before returning an array via the `to_array()` method.
  */
 abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * The Database ID of the record
+	 *
 	 * @var  null
 	 */
 	protected $id = null;
 
 	/**
 	 * Object properties
+	 *
 	 * @var  array
 	 */
 	private $data = array();
@@ -32,12 +38,14 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Array of table column name => format
+	 *
 	 * @var  array
 	 */
 	protected $columns = array();
 
 	/**
 	 * Primary Key column name => format
+	 *
 	 * @var  array
 	 */
 	protected $primary_key = array(
@@ -46,12 +54,14 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Database Table Name
+	 *
 	 * @var  string
 	 */
 	protected $table = '';
 
 	/**
 	 * Database Table Prefix
+	 *
 	 * @var  string
 	 */
 	protected $table_prefix = 'lifterlms_';
@@ -60,12 +70,14 @@ abstract class LLMS_Abstract_Database_Store {
 	 * The record type
 	 * Used for filters/actions
 	 * Should be defined by extending classes
+	 *
 	 * @var  string
 	 */
 	protected $type = '';
 
 	/**
 	 * Constructor
+	 *
 	 * @since    3.14.0
 	 * @version  3.21.0
 	 */
@@ -87,7 +99,8 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Get object data
-	 * @param    string     $key  key to retrieve
+	 *
+	 * @param    string $key  key to retrieve
 	 * @return   mixed
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -100,6 +113,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Determine if the item exists in the database
+	 *
 	 * @return   boolean
 	 * @since    3.14.7
 	 * @version  3.15.0
@@ -115,29 +129,34 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Get object data
-	 * @param    string     $key    key to retrieve
-	 * @param    boolean    $cache  if true, save data to to the object for future gets
+	 *
+	 * @since 3.14.0
+	 * @since 3.16.0 Unknown.
+	 * @since 3.36.0 Prevent undefined index error when attempting to retrieve an unset value from an unsaved object.
+	 *
+	 * @param    string  $key    key to retrieve
+	 * @param    boolean $cache  if true, save data to to the object for future gets
 	 * @return   mixed
-	 * @since    3.14.0
-	 * @version  3.16.0
 	 */
 	public function get( $key, $cache = true ) {
 
-		if ( ! isset( $this->data[ $key ] ) && $this->id ) {
+		$key_exists = isset( $this->data[ $key ] );
+		if ( ! $key_exists && $this->id ) {
 			$res = $this->read( $key )[ $key ];
 			if ( $cache ) {
 				$this->set( $key, $res );
 			}
 			return $res;
 		}
-		return $this->$key;
+		return $key_exists ? $this->$key : null;
 
 	}
 
 	/**
 	 * Set object data
-	 * @param    string    $key  column name
-	 * @param    mixed     $val  column value
+	 *
+	 * @param    string $key  column name
+	 * @param    mixed  $val  column value
 	 * @return   void
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -150,9 +169,10 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * General setter
-	 * @param    string     $key   column name
-	 * @param    mixed      $val   column value
-	 * @param    boolean    $save  if true, immediately persists to database
+	 *
+	 * @param    string  $key   column name
+	 * @param    mixed   $val   column value
+	 * @param    boolean $save  if true, immediately persists to database
 	 * @return   self
 	 * @since    3.14.0
 	 * @version  3.21.0
@@ -196,6 +216,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Create the item in the database
+	 *
 	 * @return   int|false
 	 * @since    3.14.0
 	 * @version  3.24.0
@@ -208,7 +229,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 		global $wpdb;
 		$format = array_map( array( $this, 'get_column_format' ), array_keys( $this->data ) );
-		$res = $wpdb->insert( $this->get_table(), $this->data, $format );
+		$res    = $wpdb->insert( $this->get_table(), $this->data, $format );
 		if ( 1 === $res ) {
 			$this->id = $wpdb->insert_id;
 			do_action( 'llms_' . $this->type . '_created', $this->id, $this );
@@ -220,6 +241,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Delete the object from the database
+	 *
 	 * @return   boolean     true on success, false otherwise
 	 * @since    3.14.0
 	 * @version  3.24.0
@@ -233,9 +255,9 @@ abstract class LLMS_Abstract_Database_Store {
 		$id = $this->id;
 		global $wpdb;
 		$where = array_combine( array_keys( $this->primary_key ), array( $this->id ) );
-		$res = $wpdb->delete( $this->get_table(), $where, array_values( $this->primary_key ) );
+		$res   = $wpdb->delete( $this->get_table(), $where, array_values( $this->primary_key ) );
 		if ( $res ) {
-			$this->id = null;
+			$this->id   = null;
 			$this->data = array();
 			do_action( 'llms_' . $this->type . '_deleted', $id, $this );
 			return true;
@@ -246,7 +268,8 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Read object data from the database
-	 * @param    array|string  $keys   key name (or array of keys) to retrieve from the database
+	 *
+	 * @param    array|string $keys   key name (or array of keys) to retrieve from the database
 	 * @return   array|false           key=>val array of data or false when record not found
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -257,14 +280,18 @@ abstract class LLMS_Abstract_Database_Store {
 		if ( is_array( $keys ) ) {
 			$keys = implode( ', ', $keys );
 		}
-		$res = $wpdb->get_row( $wpdb->prepare( "SELECT {$keys} FROM {$this->get_table()} WHERE {$this->get_primary_key()} = %d", $this->id ), ARRAY_A );
+		$res = $wpdb->get_row(
+			$wpdb->prepare( "SELECT {$keys} FROM {$this->get_table()} WHERE {$this->get_primary_key()} = %d", $this->id ), // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- This query is safe.
+			ARRAY_A
+		);
 		return ! $res ? false : $res;
 
 	}
 
 	/**
 	 * Update object data in the database
-	 * @param    array     $data  data to update as key=>val
+	 *
+	 * @param    array $data  data to update as key=>val
 	 * @return   bool
 	 * @since    3.14.0
 	 * @version  3.24.0
@@ -273,8 +300,8 @@ abstract class LLMS_Abstract_Database_Store {
 
 		global $wpdb;
 		$format = array_map( array( $this, 'get_column_format' ), array_keys( $data ) );
-		$where = array_combine( array_keys( $this->primary_key ), array( $this->id ) );
-		$res = $wpdb->update( $this->get_table(), $data, $where, $format, array_values( $this->primary_key ) );
+		$where  = array_combine( array_keys( $this->primary_key ), array( $this->id ) );
+		$res    = $wpdb->update( $this->get_table(), $data, $where, $format, array_values( $this->primary_key ) );
 		if ( $res ) {
 			do_action( 'llms_' . $this->type . '_updated', $this->id, $this );
 			return true;
@@ -285,9 +312,10 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Load the whole object from the database
-	 * @return   void
-	 * @since    3.14.0
-	 * @version  3.14.0
+	 *
+	 * @since 3.14.0
+	 *
+	 * @return obj
 	 */
 	protected function hydrate() {
 
@@ -305,6 +333,7 @@ abstract class LLMS_Abstract_Database_Store {
 	/**
 	 * Save object to the database
 	 * Creates is it doesn't already exist, updates if it does
+	 *
 	 * @return   boolean
 	 * @since    3.14.0
 	 * @version  3.24.0
@@ -329,7 +358,8 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Retrieve the format for a column
-	 * @param    string    $key  column name
+	 *
+	 * @param    string $key  column name
 	 * @return   string
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -345,6 +375,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Retrieve the primary key column name
+	 *
 	 * @return   string
 	 * @since    3.15.0
 	 * @version  3.15.0
@@ -358,6 +389,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Get the ID of the object
+	 *
 	 * @return   int
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -368,6 +400,7 @@ abstract class LLMS_Abstract_Database_Store {
 
 	/**
 	 * Get the table Name
+	 *
 	 * @return   string
 	 * @since    3.14.0
 	 * @version  3.14.0
@@ -384,11 +417,13 @@ abstract class LLMS_Abstract_Database_Store {
 	 *
 	 * @since 3.14.0
 	 * @since 3.34.0 Return the item ID instead of item format as the value of the primary key.
+	 * @since 3.36.0 Hydrate before returning the array.
 	 *
 	 * @return array
 	 */
 	public function to_array() {
 
+		$this->hydrate();
 		return array_merge( array_combine( array_keys( $this->primary_key ), array( $this->id ) ), $this->data );
 
 	}

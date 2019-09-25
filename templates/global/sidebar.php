@@ -1,7 +1,13 @@
 <?php
 /**
  * Retrieve sidebar
+ *
+ * @package LifterLMS/Templates
+ *
+ * @since Unknown
+ * @version Unknown
  */
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+defined( 'ABSPATH' ) || exit;
 
 get_sidebar( 'llms_shop' );

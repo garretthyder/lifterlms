@@ -1,9 +1,13 @@
 <?php
 /**
  * LifterLMS Login Form
- * @since    3.0.0
- * @version  3.21.0
+ *
+ * @package LifterLMS/Templates
+ *
+ * @since 3.0.0
+ * @version 3.21.0
  */
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! isset( $redirect ) ) {
@@ -42,7 +46,7 @@ if ( ! empty( $message ) ) {
 			<?php endforeach; ?>
 
 			<?php wp_nonce_field( 'llms_login_user', '_llms_login_user_nonce' ); ?>
-			<input type="hidden" name="redirect" value="<?php echo esc_url( $redirect ) ?>" />
+			<input type="hidden" name="redirect" value="<?php echo esc_url( $redirect ); ?>" />
 			<input type="hidden" name="action" value="llms_login_user" />
 
 			<?php do_action( 'lifterlms_login_form_end' ); ?>

@@ -1,9 +1,18 @@
 <?php
 /**
  * Students Table
+ *
+ * @package LifterLMS/Templates/Admin
+ *
+ * @since Unknown
+ * @version Unknown
  */
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-if ( ! is_admin() ) { exit; }
+
+defined( 'ABSPATH' ) || exit;
+
+if ( ! is_admin() ) {
+	exit;
+}
 
 $table = new LLMS_Table_Students();
 $table->get_results();

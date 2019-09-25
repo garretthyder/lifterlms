@@ -1,11 +1,14 @@
 <?php
 /**
  * Single Achievement Template
- * @since    1.0.0
- * @version  3.14.6
+ *
+ * @package LifterLMS/Templates
+ *
+ * @since 1.0.0
+ * @version 3.14.6
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+defined( 'ABSPATH' ) || exit;
 
 ?>
 
@@ -19,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 	<div class="llms-achievement-info">
 		<div class="llms-achievement-content"><?php echo $achievement->get( 'content' ); ?></div>
-		<div class="llms-achievement-date"><?php printf( _x( 'Awarded on %s', 'achievement earned date','lifterlms' ), $achievement->get_earned_date() ); ?></div>
+		<div class="llms-achievement-date"><?php printf( _x( 'Awarded on %s', 'achievement earned date', 'lifterlms' ), $achievement->get_earned_date() ); ?></div>
 	</div>
 
 	<?php do_action( 'lifterlms_after_achievement', $achievement ); ?>
