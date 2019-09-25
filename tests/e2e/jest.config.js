@@ -10,4 +10,8 @@ module.exports = {
 		"**/*-test.js",
 	],
 
+	setupFilesAfterEnv: [
+		'<rootDir>/bootstrap.js',
+	]
+
 };

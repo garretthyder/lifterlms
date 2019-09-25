@@ -35,6 +35,6 @@
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "test": "jest --config tests/e2e/jest.config.js",
-    "test-i": "WP_BASE_URL=http://localhost:8080 JEST_PUPPETEER_CONFIG=tests/e2e/jest-puppeteer.config.js HEADLESS=false jest --config tests/e2e/jest.config.js --runInBand"
+    "test-i": "WP_BASE_URL=http://localhost:8889 JEST_PUPPETEER_CONFIG=tests/e2e/jest-puppeteer.config.js HEADLESS=false jest --config tests/e2e/jest.config.js --runInBand"
   }
 }
