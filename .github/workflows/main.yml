@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: WP Pot Generator
+      uses: varunsridharan/action-wp-pot-generator@1.0
+      with:
+        # Location / Path to save POT File Required
+        save_path: ./languages
+        # Slug of your WordPress Theme / Plugin Slug Required
+        item_slug: lifterlms
+        # WordPress Theme / Plugin TextDomain
+        domain: lifterlms
+        # WordPress Theme / Plugin Name
+        package_name: LifterLMS
